@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #012d43;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "open source", "label": "open source", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "machine learning", "label": "machine learning", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "artificial intellige", "label": "artificial intellige", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "deep learning", "label": "deep learning", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "python", "label": "python", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "api", "label": "api", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "free", "label": "free", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "writing", "label": "writing", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "data analysis", "label": "data analysis", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "conference", "label": "conference", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "automation", "label": "automation", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "programming", "label": "programming", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "gis", "label": "gis", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "mapping", "label": "mapping", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "remote sensing", "label": "remote sensing", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "ADAFRUIT INDUSTRIES,", "label": "ADAFRUIT INDUSTRIES,", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "ANALYTICS VIDHYA - M", "label": "ANALYTICS VIDHYA - M", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "ARTIFICIAL INTELLIGE", "label": "ARTIFICIAL INTELLIGE", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "DEEPL TRANSLATOR", "label": "DEEPL TRANSLATOR", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "HOME - DATA + AI SUM", "label": "HOME - DATA + AI SUM", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "INKSCAPE - DRAW FREE", "label": "INKSCAPE - DRAW FREE", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "JENKINS", "label": "JENKINS", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "LITCHI FOR DJI DRONE", "label": "LITCHI FOR DJI DRONE", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "MAPMAKER: OCEAN", "label": "MAPMAKER: OCEAN", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "MOVEBANK", "label": "MOVEBANK", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "OXTS | EXPERTS IN IN", "label": "OXTS | EXPERTS IN IN", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "PLANET - SATELLITE I", "label": "PLANET - SATELLITE I", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "POLY HAVEN", "label": "POLY HAVEN", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "QUANTUM TECHNOLOGY I", "label": "QUANTUM TECHNOLOGY I", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "R GGMAP - HOW TO VIS", "label": "R GGMAP - HOW TO VIS", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "SERENADE", "label": "SERENADE", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "SHINY", "label": "SHINY", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "TABLEAU", "label": "TABLEAU", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "TENSORFLOW", "label": "TENSORFLOW", "shape": "dot", "size": 10}, {"color": "#6a1600", "font": {"color": "#ebebeb"}, "id": "WRITEFULL", "label": "WRITEFULL", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"color": "#ebebeb", "from": "open source", "title": "ADAFRUIT INDUSTRIES,", "to": "ADAFRUIT INDUSTRIES,"}, {"color": "#ebebeb", "from": "machine learning", "title": "ANALYTICS VIDHYA - M", "to": "ANALYTICS VIDHYA - M"}, {"color": "#ebebeb", "from": "artificial intellige", "title": "ANALYTICS VIDHYA - M", "to": "ANALYTICS VIDHYA - M"}, {"color": "#ebebeb", "from": "deep learning", "title": "ANALYTICS VIDHYA - M", "to": "ANALYTICS VIDHYA - M"}, {"color": "#ebebeb", "from": "python", "title": "ANALYTICS VIDHYA - M", "to": "ANALYTICS VIDHYA - M"}, {"color": "#ebebeb", "from": "artificial intellige", "title": "ARTIFICIAL INTELLIGE", "to": "ARTIFICIAL INTELLIGE"}, {"color": "#ebebeb", "from": "deep learning", "title": "DEEPL TRANSLATOR", "to": "DEEPL TRANSLATOR"}, {"color": "#ebebeb", "from": "api", "title": "DEEPL TRANSLATOR", "to": "DEEPL TRANSLATOR"}, {"color": "#ebebeb", "from": "free", "title": "DEEPL TRANSLATOR", "to": "DEEPL TRANSLATOR"}, {"color": "#ebebeb", "from": "writing", "title": "DEEPL TRANSLATOR", "to": "DEEPL TRANSLATOR"}, {"color": "#ebebeb", "from": "data analysis", "title": "HOME - DATA + AI SUM", "to": "HOME - DATA + AI SUM"}, {"color": "#ebebeb", "from": "artificial intellige", "title": "HOME - DATA + AI SUM", "to": "HOME - DATA + AI SUM"}, {"color": "#ebebeb", "from": "conference", "title": "HOME - DATA + AI SUM", "to": "HOME - DATA + AI SUM"}, {"color": "#ebebeb", "from": "open source", "title": "INKSCAPE - DRAW FREE", "to": "INKSCAPE - DRAW FREE"}, {"color": "#ebebeb", "from": "automation", "title": "JENKINS", "to": "JENKINS"}, {"color": "#ebebeb", "from": "programming", "title": "JENKINS", "to": "JENKINS"}, {"color": "#ebebeb", "from": "api", "title": "LITCHI FOR DJI DRONE", "to": "LITCHI FOR DJI DRONE"}, {"color": "#ebebeb", "from": "gis", "title": "MAPMAKER: OCEAN", "to": "MAPMAKER: OCEAN"}, {"color": "#ebebeb", "from": "mapping", "title": "MAPMAKER: OCEAN", "to": "MAPMAKER: OCEAN"}, {"color": "#ebebeb", "from": "remote sensing", "title": "MAPMAKER: OCEAN", "to": "MAPMAKER: OCEAN"}, {"color": "#ebebeb", "from": "gis", "title": "MOVEBANK", "to": "MOVEBANK"}, {"color": "#ebebeb", "from": "remote sensing", "title": "OXTS | EXPERTS IN IN", "to": "OXTS | EXPERTS IN IN"}, {"color": "#ebebeb", "from": "remote sensing", "title": "PLANET - SATELLITE I", "to": "PLANET - SATELLITE I"}, {"color": "#ebebeb", "from": "free", "title": "POLY HAVEN", "to": "POLY HAVEN"}, {"color": "#ebebeb", "from": "conference", "title": "QUANTUM TECHNOLOGY I", "to": "QUANTUM TECHNOLOGY I"}, {"color": "#ebebeb", "from": "mapping", "title": "R GGMAP - HOW TO VIS", "to": "R GGMAP - HOW TO VIS"}, {"color": "#ebebeb", "from": "gis", "title": "R GGMAP - HOW TO VIS", "to": "R GGMAP - HOW TO VIS"}, {"color": "#ebebeb", "from": "remote sensing", "title": "R GGMAP - HOW TO VIS", "to": "R GGMAP - HOW TO VIS"}, {"color": "#ebebeb", "from": "automation", "title": "SERENADE", "to": "SERENADE"}, {"color": "#ebebeb", "from": "programming", "title": "SERENADE", "to": "SERENADE"}, {"color": "#ebebeb", "from": "artificial intellige", "title": "SERENADE", "to": "SERENADE"}, {"color": "#ebebeb", "from": "python", "title": "SHINY", "to": "SHINY"}, {"color": "#ebebeb", "from": "programming", "title": "SHINY", "to": "SHINY"}, {"color": "#ebebeb", "from": "data analysis", "title": "TABLEAU", "to": "TABLEAU"}, {"color": "#ebebeb", "from": "machine learning", "title": "TENSORFLOW", "to": "TENSORFLOW"}, {"color": "#ebebeb", "from": "writing", "title": "WRITEFULL", "to": "WRITEFULL"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"font": {"face": "Arial", "size": 25}, "shadow": {"enabled": true}}, "edges": {"font": {"face": "Arial", "size": 14}, "shadow": {"enabled": true}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
